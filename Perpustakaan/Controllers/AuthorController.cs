@@ -12,13 +12,11 @@ namespace Perpustakaan.Controllers
     public class AuthorController : ControllerBase
     {
         private IRepositoryWrapper _repository;
-        private IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public AuthorController(IRepositoryWrapper repository, IMapper mapper, IConfiguration configuration)
+        public AuthorController(IRepositoryWrapper repository, IConfiguration configuration)
         {
             _repository = repository;
-            _mapper = mapper;
             _configuration = configuration;
         }
 
