@@ -1,5 +1,5 @@
-﻿using Entities.DataTransferObjects;
-using Entities.DataTransferObjects.Author;
+﻿using Entities.DataTransferObjects.Author;
+using Entities.DataTransferObjects.User;
 using Entities.Models;
 using Mapster;
 

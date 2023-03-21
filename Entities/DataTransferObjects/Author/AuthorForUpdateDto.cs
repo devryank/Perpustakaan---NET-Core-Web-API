@@ -5,12 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.DataTransferObjects.Author
 {
-    public class Author
+    public class AuthorForUpdateDto
     {
-        public Guid Id { get; set; }
-
         [Required(ErrorMessage = "Name is required")]
         [StringLength(100, ErrorMessage = "Name can't be longer than 100 characters")]
         public string Name { get; set; }
@@ -18,6 +16,5 @@ namespace Entities.Models
         [Required(ErrorMessage = "Phone is required")]
         [StringLength(13, ErrorMessage = "Phone can't be longer than 13 characters")]
         public string Phone { get; set; }
-        public List<Book>? Books { get; set; }
     }
 }

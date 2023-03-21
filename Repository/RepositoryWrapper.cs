@@ -7,6 +7,7 @@ namespace Repository
     {
         private RepositoryContext _repoContext;
         private IUserRepository _user;
+        private IAuthorRepository _author;
 
         public IUserRepository User
         {
@@ -18,6 +19,18 @@ namespace Repository
                 }
 
                 return _user;
+            }
+        }
+        public IAuthorRepository Author
+        {
+            get
+            {
+                if (_author == null)
+                {
+                    _author = new AuthorRepository(_repoContext);
+                }
+
+                return _author;
             }
         }
 
