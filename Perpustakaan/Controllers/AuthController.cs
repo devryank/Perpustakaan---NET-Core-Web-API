@@ -43,7 +43,7 @@ namespace Perpustakaan.Controllers
             if (checkPassword)
             {
                 string token = CreateToken(user);
-                var userResult = _mapper.Map<UserDto>(user);
+                var userResult = MappingFunctions.UserById(user);
                 return Ok(new { user = userResult, token });
             }
             else
@@ -68,13 +68,11 @@ namespace Perpustakaan.Controllers
                 }
                 var hash = BCrypt.Net.BCrypt.EnhancedHashPassword(user.Password);
                 user.Password = hash;
-                var userEntity = _mapper.Map<User>(user);
+                var userEntity = MappingFunctions.CreateUser(user);
                 _repository.User.CreateUser(userEntity);
                 _repository.Save();
 
-                var createdUser = _mapper.Map<UserDto>(userEntity);
-
-                return CreatedAtRoute("UserById", new { id = createdUser.Id }, createdUser);
+                return Ok(userEntity);
             }
             catch (Exception ex)
             {
