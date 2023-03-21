@@ -8,6 +8,7 @@ namespace Repository
         private RepositoryContext _repoContext;
         private IUserRepository _user;
         private IAuthorRepository _author;
+        private IPublisherRepository _publisher;
 
         public IUserRepository User
         {
@@ -31,6 +32,19 @@ namespace Repository
                 }
 
                 return _author;
+            }
+        }
+
+        public IPublisherRepository Publisher
+        {
+            get
+            {
+                if(_publisher == null)
+                {
+                    _publisher = new PublisherRepository(_repoContext);
+                }
+
+                return _publisher;
             }
         }
 

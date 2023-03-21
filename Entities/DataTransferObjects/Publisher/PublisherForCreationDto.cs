@@ -5,12 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.DataTransferObjects.Publisher
 {
-    public class Publisher
+    public class PublisherForCreationDto
     {
-        public Guid Id { get; set; }
-
         [Required(ErrorMessage = "Name is required")]
         [StringLength(100, ErrorMessage = "Name can't be longer than 100 characters")]
         public string Name { get; set; }
@@ -26,7 +24,5 @@ namespace Entities.Models
         [Required(ErrorMessage = "Address is required")]
         [DataType(DataType.Text)]
         public string Address { get; set; }
-
-        public List<Book> Books { get; set; }
     }
 }

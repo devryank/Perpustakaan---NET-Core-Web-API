@@ -1,4 +1,5 @@
 ﻿using Entities.DataTransferObjects.Author;
+using Entities.DataTransferObjects.Publisher;
 using Entities.DataTransferObjects.User;
 using Entities.Models;
 using Mapster;
@@ -41,6 +42,24 @@ namespace Perpustakaan
         {
             var author = authorDto.Adapt(authorEntity);
             return author;
+        }
+
+        public static PublisherDto GetPublisherById(Publisher publisher)
+        {
+            var publisherDto = publisher.Adapt<PublisherDto>();
+            return publisherDto;
+        }
+
+        public static Publisher CreatePublisher(PublisherForCreationDto publisherDto)
+        {
+            var publisher = publisherDto.Adapt<Publisher>();
+            return publisher;
+        }
+
+        public static Publisher ReplacePublisher(PublisherForUpdateDto publisherDto, Publisher publisherEntity)
+        {
+            var publisher = publisherDto.Adapt(publisherEntity);
+            return publisher;
         }
     }
 }
