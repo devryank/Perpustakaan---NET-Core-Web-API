@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Entities.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Entities.DataTransferObjects.User;
 
 namespace Perpustakaan.Controllers
 {

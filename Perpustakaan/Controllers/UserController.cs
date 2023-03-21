@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Contracts;
-using Entities.DataTransferObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Entities.Models;
 using System.Data;
+using Mapster;
+using Entities.DataTransferObjects.User;
 
 namespace Perpustakaan.Controllers
 {
@@ -14,12 +15,10 @@ namespace Perpustakaan.Controllers
     public class UserController : ControllerBase
     {
         private IRepositoryWrapper _repository;
-        private IMapper _mapper;
         private readonly IConfiguration _configuration;
-        public UserController(IRepositoryWrapper repository, IMapper mapper, IConfiguration configuration)
+        public UserController(IRepositoryWrapper repository, IConfiguration configuration)
         {
             _repository = repository;
-            _mapper = mapper;
             _configuration = configuration;
         }
 
@@ -51,7 +50,7 @@ namespace Perpustakaan.Controllers
                 }
                 else
                 {
-                    var userResult = _mapper.Map<UserDto>(user);
+                    var userResult = MappingFunctions.UserById(user);
                     return Ok(userResult);
                 }
             }
@@ -79,11 +78,11 @@ namespace Perpustakaan.Controllers
                 var hash = BCrypt.Net.BCrypt.EnhancedHashPassword(user.Password);
                 user.Password = hash;
 
-                var userEntity = _mapper.Map<User>(user);
+                var userEntity = MappingFunctions.CreateUser(user);
                 _repository.User.CreateUser(userEntity);
                 _repository.Save();
 
-                var createdUser = _mapper.Map<UserDto>(userEntity);
+                var createdUser = MappingFunctions.UserById(userEntity);
 
                 return CreatedAtRoute("UserById", new { id = createdUser.Id }, createdUser);
             }
@@ -95,11 +94,11 @@ namespace Perpustakaan.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(Guid id, [FromBody] UserForUpdateDto user)
+        public IActionResult UpdateUser(Guid id, [FromBody] UserForUpdateDto userUpdateDto)
         {
             try
             {
-                if (user is null)
+                if (userUpdateDto is null)
                 {
                     return BadRequest("User object is null");
                 }
@@ -114,9 +113,7 @@ namespace Perpustakaan.Controllers
                 {
                     return NotFound();
                 }
-
-                _mapper.Map(user, userEntity);
-
+                userEntity = MappingFunctions.ReplaceUser(userUpdateDto, userEntity);
                 _repository.User.UpdateUser(userEntity);
                 _repository.Save();
 
