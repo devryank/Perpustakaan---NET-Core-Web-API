@@ -9,6 +9,7 @@ namespace Repository
         private IUserRepository _user;
         private IAuthorRepository _author;
         private IPublisherRepository _publisher;
+        private IBookRepository _book;
 
         public IUserRepository User
         {
@@ -45,6 +46,19 @@ namespace Repository
                 }
 
                 return _publisher;
+            }
+        }
+
+        public IBookRepository Book
+        {
+            get
+            {
+                if (_book == null)
+                {
+                    _book = new BookRepository(_repoContext);
+                }
+
+                return _book;
             }
         }
 

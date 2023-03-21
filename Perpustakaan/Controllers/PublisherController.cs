@@ -3,6 +3,8 @@ using Entities.DataTransferObjects.Publisher;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Perpustakaan.Controllers
 {
@@ -62,7 +64,16 @@ namespace Perpustakaan.Controllers
                 {
                     return NotFound();
                 }
-                return Ok(publisher);
+                //JsonSerializerOptions options = new()
+                //{
+                //    ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                //    WriteIndented = true
+                //};
+                //var text = JsonSerializer.Serialize(publisher, options);
+
+                //return Ok(JsonSerializer.Deserialize<Publisher>(text, options));
+                var publisherResult = MappingFunctions.GetPublisherWithBooks(publisher);
+                return Ok(publisherResult);
             }
             catch (Exception ex)
             {

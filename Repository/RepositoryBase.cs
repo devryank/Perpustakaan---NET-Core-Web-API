@@ -18,6 +18,9 @@ namespace Repository
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression) =>
             RepositoryContext.Set<T>().Where(expression).AsNoTracking();
 
+        public IQueryable<T> FindAndInclude(Expression<Func<T, bool>> expression, Expression<Func<T, bool>> expression2) =>
+            RepositoryContext.Set<T>().Where(expression).Include(expression2).AsNoTracking();
+
         public void Create(T entity) => RepositoryContext.Set<T>().Add(entity);
 
         public void Update(T entity) => RepositoryContext.Set<T>().Update(entity);

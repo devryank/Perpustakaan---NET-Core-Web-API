@@ -18,6 +18,6 @@ namespace Entities.Models
         [Required(ErrorMessage = "Phone is required")]
         [StringLength(13, ErrorMessage = "Phone can't be longer than 13 characters")]
         public string Phone { get; set; }
-        public List<Book>? Books { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }

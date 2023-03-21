@@ -27,6 +27,6 @@ namespace Entities.Models
         [DataType(DataType.Text)]
         public string Address { get; set; }
 
-        public List<Book> Books { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }

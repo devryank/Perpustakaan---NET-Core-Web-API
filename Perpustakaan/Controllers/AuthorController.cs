@@ -4,6 +4,8 @@ using Entities.DataTransferObjects.Author;
 using Entities.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Perpustakaan.Controllers
 {
@@ -57,11 +59,19 @@ namespace Perpustakaan.Controllers
             try
             {
                 var author = _repository.Author.GetAuthorWithBooks(id);
+                JsonSerializerOptions options = new()
+                {
+                    ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                    WriteIndented = true
+                };
+
                 if (author == null)
                 {
                     return NotFound();
                 }
-                return Ok(author);
+
+                var authorResult = MappingFunctions.GetAuthorWithBooks(author);
+                return Ok(authorResult);
             }
             catch (Exception ex)
             {
