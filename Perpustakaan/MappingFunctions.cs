@@ -1,4 +1,5 @@
 ﻿using Entities.DataTransferObjects.Author;
+using Entities.DataTransferObjects.Book;
 using Entities.DataTransferObjects.Publisher;
 using Entities.DataTransferObjects.User;
 using Entities.Models;
@@ -31,6 +32,11 @@ namespace Perpustakaan
             var authorDto = author.Adapt<AuthorDto>();
             return authorDto;
         }
+        public static AuthorWithBooksDto GetAuthorWithBooks(Author author)
+        {
+            var authorDto = author.Adapt<AuthorWithBooksDto>();
+            return authorDto;
+        }
 
         public static Author CreateAuthor(AuthorForCreationDto authorDto)
         {
@@ -50,6 +56,18 @@ namespace Perpustakaan
             return publisherDto;
         }
 
+        //public static IQueryable<PublisherWithBooksDto> GetPublisherWithBooks(Publisher publisher)
+        //{
+        //    var publisherDto = publisher.AsQueryable();
+        //    publisherDto = publisher.Adapt<PublisherWithBooksDto>();
+        //    return publisherDto;
+        //}
+        public static PublisherWithBooksDto GetPublisherWithBooks(Publisher publisher)
+        {
+            var publisherDto = publisher.Adapt<PublisherWithBooksDto>();
+            return publisherDto;
+        }
+
         public static Publisher CreatePublisher(PublisherForCreationDto publisherDto)
         {
             var publisher = publisherDto.Adapt<Publisher>();
@@ -60,6 +78,30 @@ namespace Perpustakaan
         {
             var publisher = publisherDto.Adapt(publisherEntity);
             return publisher;
+        }
+
+        public static BookDto GetBookById(Book book)
+        {
+            var bookDto = book.Adapt<BookDto>();
+            return bookDto;
+        }
+
+        public static BookWithRelationDto GetBookWithRelationById(Book book)
+        {
+            var bookDto = book.Adapt<BookWithRelationDto>();
+            return bookDto;
+        }
+
+        public static Book CreateBook(BookForCreationDto bookDto)
+        {
+            var book = bookDto.Adapt<Book>();
+            return book;
+        }
+
+        public static Book ReplaceBook(BookForUpdateDto bookDto, Book bookEntity)
+        {
+            var book = bookDto.Adapt(bookEntity);
+            return book;
         }
     }
 }

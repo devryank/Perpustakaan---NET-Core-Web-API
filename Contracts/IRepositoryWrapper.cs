@@ -11,6 +11,7 @@ namespace Contracts
         IUserRepository User { get; }
         IAuthorRepository Author { get; }
         IPublisherRepository Publisher { get; }
+        IBookRepository Book { get; }
         void Save();
     }
 }
