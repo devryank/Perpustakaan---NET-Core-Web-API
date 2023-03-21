@@ -129,8 +129,12 @@ namespace Perpustakaan.Controllers
         {
             try
             {
-                var author = _repository.Author.GetAuthorById(id);
-                if(author == null)
+                var author = _repository.Author.GetAuthorWithBooks(id);
+                if (author.Books.Count > 0)
+                {
+                    return StatusCode(500, "Author tidak dapat dihapus karena memiliki data buku");
+                }
+                if (author == null)
                 {
                     return NotFound();
                 }
