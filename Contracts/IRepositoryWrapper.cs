@@ -12,6 +12,7 @@ namespace Contracts
         IAuthorRepository Author { get; }
         IPublisherRepository Publisher { get; }
         IBookRepository Book { get; }
+        IMemberRepository Member { get; }
         void Save();
     }
 }

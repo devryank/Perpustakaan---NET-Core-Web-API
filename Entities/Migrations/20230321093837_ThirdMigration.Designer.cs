@@ -4,6 +4,7 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20230321093837_ThirdMigration")]
+    partial class ThirdMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,64 +90,6 @@ namespace Entities.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Entities.Models.Loan", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Fine")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LoanDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ReturnDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Loans");
-                });
-
-            modelBuilder.Entity("Entities.Models.Member", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
-                    b.Property<byte[]>("Photo")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Members");
-                });
-
             modelBuilder.Entity("Entities.Models.Publisher", b =>
                 {
                     b.Property<Guid>("Id")
@@ -206,21 +150,6 @@ namespace Entities.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("LoanMember", b =>
-                {
-                    b.Property<Guid>("LoansId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MembersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("LoansId", "MembersId");
-
-                    b.HasIndex("MembersId");
-
-                    b.ToTable("LoanMember");
-                });
-
             modelBuilder.Entity("Entities.Models.Book", b =>
                 {
                     b.HasOne("Entities.Models.Author", "Author")
@@ -238,21 +167,6 @@ namespace Entities.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Publisher");
-                });
-
-            modelBuilder.Entity("LoanMember", b =>
-                {
-                    b.HasOne("Entities.Models.Loan", null)
-                        .WithMany()
-                        .HasForeignKey("LoansId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.Member", null)
-                        .WithMany()
-                        .HasForeignKey("MembersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Models.Author", b =>
