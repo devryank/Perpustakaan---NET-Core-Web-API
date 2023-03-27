@@ -16,6 +16,17 @@ namespace Entities.Models
         [StringLength(255, ErrorMessage = "Name can't be longer than 255 characters")]
         public string Title { get; set; }
 
+        //[Required(ErrorMessage = "Image is required")]
+        //[FileExtensions(Extensions = "jpg,jpeg,png")]
+        public byte[] Image { get; set; }
+
+        [Required(ErrorMessage = "Amount is required")]
+        public int Amount { get; set; }
+
+        [Required(ErrorMessage = "ISBN is required")]
+        [StringLength(17, ErrorMessage = "ISBN can't be longer than 13")]
+        public string ISBN { get; set; }
+
         [Required(ErrorMessage = "Description is required")]
         [DataType(DataType.Text)]
         public string Description { get; set; }

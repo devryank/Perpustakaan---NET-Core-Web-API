@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Mapster;
 
 namespace Perpustakaan.Controllers
 {
@@ -14,11 +15,13 @@ namespace Perpustakaan.Controllers
     {
         private IRepositoryWrapper _repository;
         private readonly IConfiguration _configuration;
+        public static IWebHostEnvironment _environment;
 
-        public BookController(IRepositoryWrapper repository, IConfiguration configuration)
+        public BookController(IRepositoryWrapper repository, IConfiguration configuration, IWebHostEnvironment environment)
         {
             _repository = repository;
             _configuration = configuration;
+            _environment = environment;
         }
 
         [Authorize(Roles = "Admin")]
@@ -62,9 +65,22 @@ namespace Perpustakaan.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public IActionResult Create([FromBody] BookForCreationDto book)
+        [HttpPost("uploadBuku")]
+        public IActionResult Create([FromForm] BookForCreationDto book, [FromForm(Name = "Image")] IFormFile file)
         {
+            //var filePath = Path.GetTempFileName();
+            //using (FileStream fileStream = System.IO.File.Create(_environment.WebRootPath + "\\Upload\\" + file.FileName))
+            //{
+            //    file.CopyTo(fileStream);
+            //    return Ok(fileStream);
+            //    fileStream.Flush();
+            //}
+            using (var ms = new MemoryStream())
+            {
+                file.CopyTo(ms);
+                book.Image = ms.ToArray();
+            }
+            //    return Ok(file);
             //return Ok(book);
             try
             {
@@ -91,8 +107,13 @@ namespace Perpustakaan.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, [FromBody] BookForUpdateDto bookUpdateDto)
+        public IActionResult Update(Guid id, [FromForm] BookForUpdateDto bookUpdateDto, [FromForm(Name = "Image")] IFormFile file)
         {
+            using (var ms = new MemoryStream())
+            {
+                file.CopyTo(ms);
+                bookUpdateDto.Image = ms.ToArray();
+            }
             try
             {
 
@@ -105,14 +126,19 @@ namespace Perpustakaan.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                var bookEntity = _repository.Book.GetBookById(id);
-                var bookMap = MappingFunctions.GetBookById(bookEntity);
-                return Ok(bookMap);
-                bookEntity = MappingFunctions.ReplaceBook(bookUpdateDto, bookEntity);
-                _repository.Book.UpdateBook(bookEntity);
+                //var bookEntity = _repository.Book.GetBookById(id);
+                //return Ok(bookEntity);
+                var bookMap = bookUpdateDto.Adapt<Book>();
+                bookMap.Id = id;
+                //return Ok(bookMap);
+                //return Ok(bookUpdateDto);
+                //var bookUpdateDtoMapToModel = bookUpdateDto.Adapt<Book>();
+                //bookUpdateDtoMapToModel.Id = bookEntity.Id;
+                //return Ok(bookUpdateDtoMapToModel);
+                _repository.Book.UpdateBook(bookMap);
                 _repository.Save();
 
-                return Ok(bookEntity);
+                return Ok(bookMap);
             }
             catch (Exception ex)
             {

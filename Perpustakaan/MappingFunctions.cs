@@ -4,6 +4,7 @@ using Entities.DataTransferObjects.Publisher;
 using Entities.DataTransferObjects.User;
 using Entities.Models;
 using Mapster;
+using System.Net.NetworkInformation;
 
 namespace Perpustakaan
 {
@@ -86,6 +87,12 @@ namespace Perpustakaan
             return bookDto;
         }
 
+        public static Book AdaptWithItself(Book book)
+        {
+            var bookMap = book.Adapt<BookDto>().Adapt<Book>();
+            return bookMap;
+        }
+
         public static BookWithRelationDto GetBookWithRelationById(Book book)
         {
             var bookDto = book.Adapt<BookWithRelationDto>();
@@ -101,6 +108,12 @@ namespace Perpustakaan
         public static Book ReplaceBook(BookForUpdateDto bookDto, Book bookEntity)
         {
             var book = bookDto.Adapt(bookEntity);
+            return book;
+        }
+
+        public static BookDto ReplaceBookWithDto(BookForUpdateDto bookUpdateDto, BookDto bookDto)
+        {
+            var book = bookUpdateDto.Adapt(bookDto);
             return book;
         }
     }

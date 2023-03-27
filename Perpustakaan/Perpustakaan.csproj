@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Context\" />
+    <Folder Include="wwwroot\Upload\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,18 +9,28 @@ namespace Entities.DataTransferObjects.Book
 {
     public class BookForUpdateDto
     {
-        [Required(ErrorMessage = "Name is required")]
+        [Required]
         [StringLength(255, ErrorMessage = "Name can't be longer than 255 characters")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Description is required")]
+        [FileExtensions(Extensions = "jpg,jpeg,png")]
+        public byte[]? Image { get; set; }
+
+        [Required]
+        public int Amount { get; set; }
+
+        [Required]
+        [StringLength(17, ErrorMessage = "ISBN can't be longer than 13")]
+        public string ISBN { get; set; }
+
+        [Required]
         [DataType(DataType.Text)]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Author is required")]
+        [Required]
         public string AuthorId { get; set; }
 
-        [Required(ErrorMessage = "Publisher is required")]
+        [Required]
         public string PublisherId { get; set; }
     }
 }
