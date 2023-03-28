@@ -770,6 +770,282 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Member",
+			"item": [
+				{
+					"name": "Member",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7184/api/member",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7184",
+							"path": [
+								"api",
+								"member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Member",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"alif\",\r\n    \"email\": \"alif@gmail.com\",\r\n    \"password\": \"test\",\r\n    \"role\": \"Member\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7184/api/member",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7184",
+							"path": [
+								"api",
+								"member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Member",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7184/api/member/08db2372-aed1-4a42-8c6c-f0e059be395c",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7184",
+							"path": [
+								"api",
+								"member",
+								"08db2372-aed1-4a42-8c6c-f0e059be395c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Member By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7184/api/member/08db2372-aed1-4a42-8c6c-f0e059be395c/books",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7184",
+							"path": [
+								"api",
+								"member",
+								"08db2372-aed1-4a42-8c6c-f0e059be395c",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Member",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7184/api/member/08db2372-aed1-4a42-8c6c-f0e059be395c",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7184",
+							"path": [
+								"api",
+								"member",
+								"08db2372-aed1-4a42-8c6c-f0e059be395c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Loan",
+			"item": [
+				{
+					"name": "Loan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7184/api/loan",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7184",
+							"path": [
+								"api",
+								"loan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Loan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"alif\",\r\n    \"email\": \"alif@gmail.com\",\r\n    \"password\": \"test\",\r\n    \"role\": \"Member\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7184/api/loan",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7184",
+							"path": [
+								"api",
+								"loan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Loan",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7184/api/loan/08db2372-aed1-4a42-8c6c-f0e059be395c",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7184",
+							"path": [
+								"api",
+								"loan",
+								"08db2372-aed1-4a42-8c6c-f0e059be395c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Loan By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7184/api/loan/08db2372-aed1-4a42-8c6c-f0e059be395c/books",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7184",
+							"path": [
+								"api",
+								"loan",
+								"08db2372-aed1-4a42-8c6c-f0e059be395c",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Loan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7184/api/loan/08db2372-aed1-4a42-8c6c-f0e059be395c",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7184",
+							"path": [
+								"api",
+								"loan",
+								"08db2372-aed1-4a42-8c6c-f0e059be395c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
