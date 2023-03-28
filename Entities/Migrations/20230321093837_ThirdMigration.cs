@@ -15,7 +15,7 @@ namespace Entities.Migrations
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
-
+                    
             migrationBuilder.AddColumn<string>(
                 name: "ISBN",
                 table: "Books",

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230327043841_MemberLoan")]
-    partial class MemberLoan
+    [Migration("20230327065745_Loans")]
+    partial class Loans
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,6 +96,9 @@ namespace Entities.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -105,10 +108,17 @@ namespace Entities.Migrations
                     b.Property<DateTime>("LoanDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("MemberId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("ReturnDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("MemberId");
 
                     b.ToTable("Loans");
                 });
@@ -208,21 +218,6 @@ namespace Entities.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("LoanMember", b =>
-                {
-                    b.Property<Guid>("LoansId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MembersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("LoansId", "MembersId");
-
-                    b.HasIndex("MembersId");
-
-                    b.ToTable("LoanMember");
-                });
-
             modelBuilder.Entity("Entities.Models.Book", b =>
                 {
                     b.HasOne("Entities.Models.Author", "Author")
@@ -242,24 +237,38 @@ namespace Entities.Migrations
                     b.Navigation("Publisher");
                 });
 
-            modelBuilder.Entity("LoanMember", b =>
+            modelBuilder.Entity("Entities.Models.Loan", b =>
                 {
-                    b.HasOne("Entities.Models.Loan", null)
-                        .WithMany()
-                        .HasForeignKey("LoansId")
+                    b.HasOne("Entities.Models.Book", "Book")
+                        .WithMany("Loans")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Member", null)
-                        .WithMany()
-                        .HasForeignKey("MembersId")
+                    b.HasOne("Entities.Models.Member", "Member")
+                        .WithMany("Loans")
+                        .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("Entities.Models.Author", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Entities.Models.Book", b =>
+                {
+                    b.Navigation("Loans");
+                });
+
+            modelBuilder.Entity("Entities.Models.Member", b =>
+                {
+                    b.Navigation("Loans");
                 });
 
             modelBuilder.Entity("Entities.Models.Publisher", b =>
