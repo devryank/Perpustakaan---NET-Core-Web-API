@@ -5,12 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.DataTransferObjects.Loan
 {
-    public class Loan
+    public class LoanForCreationDto
     {
-        public Guid Id { get; set; }
-
         [Required]
         public DateTime LoanDate { get; set; }
 
@@ -20,11 +18,9 @@ namespace Entities.Models
         [Required]
         public int Fine { get; set; }
 
-        public DateTime CreatedAt { get; set; } 
-
+        [Required]
         public Guid MemberId { get; set; }
-        public Member Member { get; set; }
-        public Guid BookId { get; set; }
-        public Book Book { get; set; }
+
+        public string? BookId { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace Repository
         private IPublisherRepository _publisher;
         private IBookRepository _book;
         private IMemberRepository _member;
+        private ILoanRepository _loan;
 
         public IUserRepository User
         {
@@ -73,6 +74,19 @@ namespace Repository
                 }
 
                 return _member;
+            }
+        }
+
+        public ILoanRepository Loan
+        {
+            get
+            {
+                if (_loan == null)
+                {
+                    _loan = new LoanRepository(_repoContext);
+                }
+
+                return _loan;
             }
         }
 

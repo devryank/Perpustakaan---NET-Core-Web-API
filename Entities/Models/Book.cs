@@ -36,5 +36,7 @@ namespace Entities.Models
         public Author Author { get; set; }
         public Guid PublisherId { get; set; }
         public  Publisher Publisher { get; set; } 
+
+        public ICollection<Loan> Loans { get; set; }
     }
 }

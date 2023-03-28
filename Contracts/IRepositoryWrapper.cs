@@ -13,6 +13,7 @@ namespace Contracts
         IPublisherRepository Publisher { get; }
         IBookRepository Book { get; }
         IMemberRepository Member { get; }
+        ILoanRepository Loan { get; } 
         void Save();
     }
 }
